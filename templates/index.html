@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <title>Events</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Events</h1>
+
+  <p class="meta">Hittade {{ events|length }} events</p>
+
+  {% for e in events %}
+    <div class="event">
+      <div class="title">{{ e.name }}</div>
+      <div class="meta">
+        {{ e.localDate }} {{ (e.localTime or "")[:5] }} – {{ e.venue }}
+      </div>
+      {% if e.url %}
+        <div><a href="{{ e.url }}" target="_blank" rel="noopener">Ticketmaster</a></div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</body>
+</html>

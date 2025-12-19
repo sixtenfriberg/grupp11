@@ -10,8 +10,6 @@ app = Flask(__name__)
 # HTML-sida på / som renderar templates/index.html
 @app.get("/")
 def home():
-    # Du kan göra detta dynamiskt senare (t.ex. via query params),
-    # men vi håller det enkelt: visa 10 events som default.
     events = fetch_events(size=10)
     return render_template("index.html", events=events)
 
@@ -19,7 +17,7 @@ def home():
 @app.get("/api/events")
 def api_events():
     keyword = request.args.get("keyword")
-    start = request.args.get("start")  # ISO: 2025-12-01T00:00:00Z
+    start = request.args.get("start")
     end = request.args.get("end")
     size = int(request.args.get("size", 20))
 
@@ -27,7 +25,6 @@ def api_events():
     lng = request.args.get("lng", type=float)
     radius = request.args.get("radius", default=10, type=float)
 
-    # Skicka vidare ALLA relevanta parametrar till Ticketmaster-funktionen
     events = fetch_events(
         keyword=keyword,
         start=start,

@@ -62,8 +62,12 @@
   a:hover {
     text-decoration: underline;
   }
+  /* CSS för kartan */
+  #map { height: 80vh; width: 60vw; }
+
   
-  /* Lite mobilanpassning */
+  
+  /* mobilanpassning */
   @media (max-width: 600px) {
     h1 {
       font-size: 26px;

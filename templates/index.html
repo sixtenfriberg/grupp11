@@ -2,12 +2,38 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Events</title>
+
+  <!-- Din egen CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
 </head>
+
 <body>
   <h1>Events</h1>
 
+  <!-- Kart-container -->
+  <div id="map"></div>
+
+  <!-- Leaflet JS (MÅSTE komma före din egen JS) -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <!-- Din egen kart-JS -->
+  <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+  <!-- Events-lista (oförändrad) -->
   <p class="meta">Hittade {{ events|length }} events</p>
 
   {% for e in events %}
@@ -17,9 +43,14 @@
         {{ e.localDate }} {{ (e.localTime or "")[:5] }} – {{ e.venue }}
       </div>
       {% if e.url %}
-        <div><a href="{{ e.url }}" target="_blank" rel="noopener">Ticketmaster</a></div>
+        <div>
+          <a href="{{ e.url }}" target="_blank" rel="noopener">
+            Ticketmaster
+          </a>
+        </div>
       {% endif %}
     </div>
   {% endfor %}
+
 </body>
 </html>

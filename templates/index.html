@@ -23,24 +23,24 @@
   <!-- Kart-container -->
   <div id="map"></div>
 
-  <!-- Leaflet JS (MÅSTE komma före din egen JS) -->
+  <!-- Leaflet JS -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
 
-  <!-- Din egen kart-JS -->
+  <!-- Vår JS karta-->
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 
-  <!-- Events-lista (oförändrad) -->
+  <!-- Events-lista-->
   <p class="meta">Hittade {{ events|length }} events</p>
 
   {% for e in events %}
     <div class="event">
       <div class="title">{{ e.name }}</div>
       <div class="meta">
-        {{ e.localDate }} {{ (e.localTime or "")[:5] }} – {{ e.venue }}
+        {{ e.localDate }} {{ (e.localTime or "")[:5] }} - {{ e.venue }}
       </div>
       {% if e.url %}
         <div>

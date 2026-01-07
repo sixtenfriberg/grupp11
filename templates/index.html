@@ -61,33 +61,19 @@
                   <div class="date-grid">
                     <div>
                       <div class="panel-label">Startdatum</div>
-                      <input
-                        class="date-input"
-                        name="start"
-                        type="date"
-                        value="{{ start or '' }}"
-                      >
+                      <input class="date-input" name="start" type="date" value="{{ start or '' }}">
                     </div>
 
                     <div>
                       <div class="panel-label">Slutdatum</div>
-                      <input
-                        class="date-input"
-                        name="end"
-                        type="date"
-                        value="{{ end or '' }}"
-                      >
+                      <input class="date-input" name="end" type="date" value="{{ end or '' }}">
                     </div>
                   </div>
 
                   <div class="panel-actions">
                     <a class="link" href="/">Återställ</a>
                     <div class="panel-right">
-                      <button
-                        class="btn outline"
-                        type="button"
-                        onclick="this.closest('details').removeAttribute('open')"
-                      >
+                      <button class="btn outline" type="button" onclick="this.closest('details').removeAttribute('open')">
                         Avbryt
                       </button>
                       <button class="btn" type="submit">Tillämpa</button>
@@ -102,9 +88,12 @@
 
           <p class="meta">Hittade {{ events|length }} events</p>
 
-          <div class="events">
+          <div class="events" id="eventsList">
             {% for e in events %}
-              <div class="event">
+              <div
+                class="event"
+                data-id="{{ e.id }}"
+              >
                 <div class="datebox">
                   <div class="day">
                     {% if e.localDate %}{{ e.localDate[8:10] }}{% else %}--{% endif %}
@@ -113,12 +102,8 @@
 
                 <div class="info">
                   <div class="topline">
-                    <span class="dow">
-                      {% if e.localDate %}{{ e.localDate }}{% endif %}
-                    </span>
-                    <span class="time">
-                      {% if e.localTime %}{{ (e.localTime or '')[:5] }}{% endif %}
-                    </span>
+                    <span class="dow">{% if e.localDate %}{{ e.localDate }}{% endif %}</span>
+                    <span class="time">{% if e.localTime %}{{ (e.localTime or '')[:5] }}{% endif %}</span>
                   </div>
 
                   <div class="title">{{ e.name }}</div>
@@ -127,9 +112,7 @@
 
                 <div class="actions">
                   {% if e.url %}
-                    <a class="btn" href="{{ e.url }}" target="_blank" rel="noopener">
-                      Hitta biljetter
-                    </a>
+                    <a class="btn" href="{{ e.url }}" target="_blank" rel="noopener">Hitta biljetter</a>
                   {% else %}
                     <span class="btn disabled">Hitta biljetter</span>
                   {% endif %}
@@ -158,6 +141,13 @@
     crossorigin=""
   ></script>
 
+  <!-- Gör events tillgängliga för static/js/map.js -->
+  <script id="events-data" type="application/json">
+    {{ events|tojson }}
+  </script>
+  
+
+  <!-- Din kartlogik -->
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 </body>
 </html>

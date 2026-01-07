@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupHtml = `
       <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; max-width: 260px;">
         <div style="font-weight:700; margin-bottom:4px;">${escapeHtml(name)}</div>
-        ${(date || time) ? `<div style="margin-bottom:4px;">🗓️ ${escapeHtml([date, time].filter(Boolean).join(' '))}</div>` : ''}
-        ${venue ? `<div style="margin-bottom:6px;">📍 ${escapeHtml(venue)}</div>` : ''}
+        ${(date || time) ? `<div style="margin-bottom:4px;"> ${escapeHtml([date, time].filter(Boolean).join(' '))}</div>` : ''}
+        ${venue ? `<div style="margin-bottom:6px;"> ${escapeHtml(venue)}</div>` : ''}
         ${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">Öppna</a>` : ''}
       </div>
     `;

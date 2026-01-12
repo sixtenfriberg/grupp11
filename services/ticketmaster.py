@@ -36,7 +36,6 @@ def fetch_events(
     if not api_key:
         raise RuntimeError("Missing TICKETMASTER_API_KEY (eller API_KEY) i .env")
 
-    # Säkra gränser enligt API
     try:
         size = int(size)
     except Exception:
@@ -77,7 +76,6 @@ def fetch_events(
         print("Ticketmaster request failed:", repr(e))
         return []
 
-    # Viktigt: krascha inte på 400/401, logga och returnera tom lista
     if not r.ok:
         print("Ticketmaster error:", r.status_code)
         print("URL:", r.url)
@@ -94,12 +92,12 @@ def fetch_events(
     out: List[Dict[str, Any]] = []
 
     for ev in raw_events:
-        # Dates
+
         start_obj = ((ev.get("dates") or {}).get("start") or {})
         local_date = start_obj.get("localDate")
         local_time = start_obj.get("localTime")
 
-        # Venue + coords
+ 
         venues = ((ev.get("_embedded") or {}).get("venues")) or []
         venue = venues[0] if venues else {}
         venue_name = venue.get("name")

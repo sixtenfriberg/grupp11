@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 def _valid_date(s):
-    """Returnerar YYYY-MM-DD eller None om ogiltigt."""
+    """Returns YYYY-MM-DD or None if insufficient."""
     if not s:
         return None
     try:
@@ -21,7 +21,7 @@ def _valid_date(s):
 
 
 def _get_filters():
-    """Hämtar och normaliserar filter från query params."""
+    """Gets filters from query params."""
     keyword = (request.args.get("keyword") or "").strip() or None
     start = _valid_date(request.args.get("start"))
     end = _valid_date(request.args.get("end"))
@@ -36,6 +36,7 @@ def _get_filters():
 
 @app.get("/")
 def home():
+    """Filters and events are shown and return the index site"""
     keyword, start, end, size = _get_filters()
 
     try:
@@ -55,6 +56,7 @@ def home():
 
 @app.get("/api/events")
 def api_events():
+    """Handles the events and returns them in json format"""
     keyword, start, end, size = _get_filters()
 
     try:

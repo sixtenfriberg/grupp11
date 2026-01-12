@@ -16,7 +16,7 @@ def fetch_events(
     city: Optional[str] = None,    
 ) -> List[Dict[str, Any]]:
     """
-    Hämtar events från Ticketmaster och returnerar en normaliserad lista.
+    Gets events from ticketmaster and returns them in a list.
 
     Return-format (per event):
     {

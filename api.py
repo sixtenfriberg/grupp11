@@ -36,21 +36,13 @@ def _get_filters():
 
 @app.get("/")
 def home():
-    """Filters and events are shown and return the index site"""
-    keyword, start, end, size = _get_filters()
-
-    try:
-        events = fetch_events(keyword=keyword, start=start, end=end, size=size)
-    except Exception as e:
-        print("fetch_events failed:", repr(e))
-        events = []
-
+    # Rendera sidan tom (ingen Ticketmaster-fetch här)
     return render_template(
         "index.html",
-        events=events,
-        keyword=keyword,
-        start=start,
-        end=end,
+        events=[],
+        keyword=None,
+        start=None,
+        end=None,
     )
 
 
